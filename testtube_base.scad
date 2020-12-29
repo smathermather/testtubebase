@@ -53,9 +53,9 @@ module layermaker(tube_size, tube_height, num_tubes, smooothness, tube_offset) {
     }
 }
 
-//layermaker(tube_size, tube_height, num_tubes, 0);
-//cylinder(r=12/2, 140, $fn=50);
-//cylinder(r=15/2, 130, $fn=50);
+layermaker(tube_size, tube_height, num_tubes, 0);
+cylinder(r=12/2, 140, $fn=50);
+cylinder(r=15/2, 130, $fn=50);
 
 difference(){
     translate([0,0,130]){

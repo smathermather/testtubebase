@@ -1,10 +1,9 @@
-//num_tubes=12;
-
-/*
-scale([25/15,25/15,25/15]){
-    import("JPTestTubeHolderBase_V2.stl", convexity=10);
-}
-*/
+tube_size=25;
+tube_height=34;
+num_tubes=12;
+internal_offset=30;
+external_offset=75;
+smooothness=5;
 
 module tubes(tube_size, height, num_tubes, internal_offset, external_offset) {
     rotate_angle=360/num_tubes;
@@ -28,15 +27,8 @@ module tubes(tube_size, height, num_tubes, internal_offset, external_offset) {
     }
 }
 
-tube_size=25;
-tube_height=34;
-num_tubes=12;
-internal_offset=30;
-external_offset=75;
-smooothness=5;
-//tubes(tube_size, tube_height, num_tubes, internal_offset, external_offset);
 
-module layermaker(tube_size, tube_height, num_tubes, smooothness) {
+module layermaker(tube_size, tube_height, num_tubes, smooothness, tube_offset) {
     difference(){
         minkowski(){
             hull(){
@@ -61,6 +53,13 @@ module layermaker(tube_size, tube_height, num_tubes, smooothness) {
     }
 }
 
-layermaker(tube_size, tube_height, num_tubes);
-cylinder(r=12/2, 140, $fn=50);
-cylinder(r=15/2, 130, $fn=50);
+//layermaker(tube_size, tube_height, num_tubes, 0);
+//cylinder(r=12/2, 140, $fn=50);
+//cylinder(r=15/2, 130, $fn=50);
+
+difference(){
+    translate([0,0,130]){
+        layermaker(tube_size, 50, num_tubes, -4);
+    }
+    cylinder(r=12/2, 142, $fn=50);
+}

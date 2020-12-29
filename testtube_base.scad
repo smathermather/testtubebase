@@ -1,10 +1,14 @@
+// Test tube size
 tube_size=25;
 tube_height=34;
+
+// Number of tubes. Internal and external offsets may need adjusted
 num_tubes=12;
 internal_offset=30;
 external_offset=75;
 smooothness=5;
 
+// Generates tube holes
 module tubes(tube_size, height, num_tubes, internal_offset, external_offset) {
     rotate_angle=360/num_tubes;
     for (tube = [1 : num_tubes]){
@@ -27,7 +31,10 @@ module tubes(tube_size, height, num_tubes, internal_offset, external_offset) {
     }
 }
 
-
+// Creates the holder array by doing the following:
+// Takes tube locations, creates a convex hull of them,
+// buffers them a bit with a Minkowski function, and then
+// smoothes the whole result with another Minkowski function
 module layermaker(tube_size, tube_height, num_tubes, smooothness, tube_offset) {
     difference(){
         minkowski(){
@@ -53,10 +60,12 @@ module layermaker(tube_size, tube_height, num_tubes, smooothness, tube_offset) {
     }
 }
 
+// Create base
 layermaker(tube_size, tube_height, num_tubes, 0);
 cylinder(r=12/2, 140, $fn=50);
 cylinder(r=15/2, 130, $fn=50);
 
+// Create upper
 difference(){
     translate([0,0,130]){
         layermaker(tube_size, 50, num_tubes, -4);

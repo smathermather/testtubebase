@@ -6,7 +6,7 @@ tube_height=34;
 num_tubes=12;
 internal_offset=30;
 external_offset=75;
-smooothness=5;
+smooothness=20;
 
 // Generates tube holes
 module tubes(tube_size, height, num_tubes, internal_offset, external_offset) {
@@ -15,15 +15,15 @@ module tubes(tube_size, height, num_tubes, internal_offset, external_offset) {
         if(tube%2==0) {
             rotate([0,0,tube*rotate_angle]){
                 translate([0,internal_offset,0]){
-                    {cylinder(r=tube_size/2*1.05, h=height, $fn=50);}
-                    //{cylinder(r=tube_size/2*1.05, h=height);}
+                    {cylinder(r=tube_size/2*1.01, h=height, $fn=50);}
+                    //{cylinder(r=tube_size/2*1.01, h=height);}
                 }
             }
         }
         else if(tube%2==1) {
             rotate([0,0,tube*rotate_angle]){
                 translate([0,external_offset / 1.5,0]){
-                    {cylinder(r=tube_size/2*1.05, h=height, $fn=50);}
+                    {cylinder(r=tube_size/2*1.01, h=height, $fn=50);}
                 }
             }        
         }
@@ -41,7 +41,7 @@ module layermaker(tube_size, tube_height, num_tubes, smooothness, tube_offset) {
             hull(){
                     tubes(
                         tube_size * 1.1
-                        ,10
+                        ,6
                         ,num_tubes
                         ,internal_offset
                         ,external_offset
@@ -66,9 +66,10 @@ cylinder(r=12/2, 140, $fn=50);
 cylinder(r=15/2, 130, $fn=50);
 
 // Create upper
-difference(){
+/*difference(){
     translate([0,0,130]){
         layermaker(tube_size, 50, num_tubes, -4);
     }
     cylinder(r=12/2, 142, $fn=50);
 }
+*/

@@ -4,8 +4,8 @@ tube_height=34;
 
 // Number of tubes. Internal and external offsets may need adjusted
 num_tubes=12;
-internal_offset=30;
-external_offset=75;
+internal_offset=32;
+external_offset=82;
 smooothness=20;
 
 // Generates tube holes
@@ -40,8 +40,8 @@ module layermaker(tube_size, tube_height, num_tubes, tube_offset) {
         minkowski(){
             hull(){
                     tubes(
-                        tube_size * 1.1
-                        ,5
+                        tube_size * 1.2
+                        ,2
                         ,num_tubes
                         ,internal_offset
                         ,external_offset
@@ -52,7 +52,7 @@ module layermaker(tube_size, tube_height, num_tubes, tube_offset) {
 
         translate([0,0,tube_offset]){
             tubes(
-                tube_size
+                tube_size * 1.1
                 ,tube_height + 6
                 ,num_tubes
                 ,internal_offset
@@ -63,9 +63,11 @@ module layermaker(tube_size, tube_height, num_tubes, tube_offset) {
 }
 
 // Create base
+
 layermaker(tube_size, tube_height, num_tubes, 0);
 cylinder(r=12/2, 140, $fn=50);
 cylinder(r=15/2, 130, $fn=50);
+
 
 // Create upper
 difference(){
